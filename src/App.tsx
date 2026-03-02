@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Scene3D from './components/Scene3D';
-import ChapterContent from './components/ChapterContent'; // Chapter 1.1
+import ChapterOne from './components/ChapterOne'; // Chapter 1.1
 import ChapterTwo from './components/ChapterTwo';       // Chapter 1.2
 import ChapterThree from './components/ChapterThree';   // Chapter 1.3
 import ChapterFour from './components/ChapterFour';
@@ -32,7 +32,7 @@ function App() {
         <div className="relative z-10 w-full pt-10">
           <Routes>
             <Route path="/" element={<Navigate to="/chapter-1.1" replace />} />
-            <Route path="/chapter-1.1" element={<ChapterContent />} />
+            <Route path="/chapter-1.1" element={<ChapterOne />} />
             <Route path="/chapter-1.2" element={<ChapterTwo />} />
             <Route path="/chapter-1.3" element={<ChapterThree />} />
             <Route path="/chapter-1.4" element={<ChapterFour />} />
