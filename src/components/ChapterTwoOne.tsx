@@ -8,20 +8,42 @@ function AccelerationHeaderAnimation({ text }: { text: string }) {
     const words = text.split(" ");
 
     return (
-        <div className="relative flex justify-center gap-3 flex-wrap mb-4 py-2 overflow-hidden px-8">
-            <motion.div
-                initial={{ x: -200, opacity: 0 }}
-                animate={{ x: "120%", opacity: [0, 1, 1, 0] }}
-                transition={{
-                    duration: 2,
-                    ease: "anticipate",
-                    repeat: Infinity,
-                    repeatDelay: 3
-                }}
-                className="absolute top-1/2 -translate-y-1/2 text-5xl md:text-7xl z-10 pointer-events-none drop-shadow-xl"
-            >
-                🏎️💨
-            </motion.div>
+        <div className="relative flex justify-center gap-3 flex-wrap mb-12 py-20 overflow-visible px-8 min-h-[300px] items-center">
+            {/* 3D Perspective Car Animation: Front to Back */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none perspective-[1000px]">
+                <motion.div
+                    initial={{
+                        z: 500,
+                        y: 100,
+                        opacity: 0,
+                        scale: 3,
+                        rotateX: 0
+                    }}
+                    animate={{
+                        z: -1000,
+                        y: -50,
+                        opacity: [0, 1, 1, 0],
+                        scale: 0.2,
+                        rotateX: 10
+                    }}
+                    transition={{
+                        duration: 3,
+                        ease: "easeIn",
+                        repeat: Infinity,
+                        repeatDelay: 1
+                    }}
+                    className="text-9xl drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+                >
+                    🏎️
+                    <motion.div
+                        animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
+                        transition={{ duration: 0.2, repeat: Infinity }}
+                        className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-4xl"
+                    >
+                        💨
+                    </motion.div>
+                </motion.div>
+            </div>
 
             {words.map((word, i) => (
                 <motion.span
