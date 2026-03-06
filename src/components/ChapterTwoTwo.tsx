@@ -3,29 +3,55 @@ import { Sigma, Milestone, Combine } from 'lucide-react';
 import FluidGlass from './FluidGlass';
 import ChapterFooter from './ChapterFooter';
 import Equations3DActivity from './Equations3DActivity';
+import EquationsDragDropActivity from './EquationsDragDropActivity';
 
-function EquationsHeaderAnimation({ text }: { text: string }) {
-    const letters = text.split("");
+function EquationsHeaderAnimation() {
+    const line1 = "EQUATIONS OF".split("");
+    const line2 = "MOTION".split("");
 
     return (
-        <div className="flex justify-center flex-wrap mb-4 py-2 overflow-hidden px-4">
-            {letters.map((letter, i) => (
-                <motion.span
-                    key={i}
-                    initial={{ opacity: 0, y: -100, rotateX: 90 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{
-                        type: "spring",
-                        damping: 8,
-                        stiffness: 150,
-                        delay: i * 0.05,
-                    }}
-                    className={`inline-block text-5xl md:text-8xl font-black ${letter === " " ? "w-4 md:w-8" : ""} text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 via-blue-600 to-indigo-600 font-outfit drop-shadow-[0_5px_15px_rgba(37,99,235,0.4)] tracking-tighter`}
-                >
-                    {letter}
-                </motion.span>
-            ))}
-        </div>
+        <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full max-w-4xl mx-auto bg-white/40 backdrop-blur-xl border border-white/60 p-12 rounded-[3.5rem] shadow-[0_20px_40px_rgba(0,0,0,0.05)] mb-12 relative overflow-hidden"
+        >
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500"></div>
+
+            <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex justify-center flex-wrap overflow-hidden">
+                    {line1.map((letter, i) => (
+                        <motion.span
+                            key={`L1-${i}`}
+                            initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                            transition={{
+                                type: "spring", damping: 12, stiffness: 200, delay: i * 0.05,
+                            }}
+                            className={`inline-block text-5xl md:text-7xl font-black ${letter === " " ? "w-4 md:w-6" : ""} text-transparent bg-clip-text bg-gradient-to-br from-slate-700 to-slate-900 font-outfit tracking-tighter`}
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+                </div>
+
+                <div className="flex justify-center flex-wrap overflow-hidden">
+                    {line2.map((letter, i) => (
+                        <motion.span
+                            key={`L2-${i}`}
+                            initial={{ opacity: 0, y: 50, scale: 0.5 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{
+                                type: "spring", damping: 10, stiffness: 100, delay: (line1.length * 0.05) + (i * 0.1),
+                            }}
+                            className="inline-block text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 via-blue-600 to-indigo-600 font-outfit drop-shadow-[0_10px_20px_rgba(37,99,235,0.3)] tracking-tighter"
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
     );
 }
 
@@ -34,10 +60,15 @@ export default function ChapterTwoTwo() {
         <div className="w-full max-w-6xl mx-auto px-4 pb-24 sm:px-6 lg:px-8 mt-24">
             {/* Header Area */}
             <div className="mb-16 text-center">
-                <EquationsHeaderAnimation text="EQUATIONS OF MOTION" />
-                <h2 className="text-3xl font-extrabold text-indigo-800 uppercase tracking-widest mt-4 bg-white/50 inline-block px-8 py-2 rounded-full shadow-sm backdrop-blur-sm border-2 border-indigo-200">
+                <EquationsHeaderAnimation />
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
+                    className="text-3xl font-extrabold text-indigo-800 uppercase tracking-widest bg-white/60 inline-block px-10 py-3 rounded-full shadow-md backdrop-blur-md border-2 border-indigo-200"
+                >
                     Unit 2: Mathematical Models
-                </h2>
+                </motion.h2>
             </div>
 
             {/* Video & Concept Content */}
@@ -125,6 +156,8 @@ export default function ChapterTwoTwo() {
             <h3 className="text-4xl font-extrabold text-slate-800 text-center mb-4 mt-20">The 3D Equations Simulator 🏎️</h3>
             <p className="text-center text-slate-500 text-xl font-medium mb-8">Set your initial conditions and press Drive to see the equations in action!</p>
             <Equations3DActivity />
+
+            <EquationsDragDropActivity />
 
             <ChapterFooter chapterName="Equations of Motion" />
         </div>

@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera, Environment, Text } from '@react-three/drei';
 import * as THREE from 'three';
-
 function RacingCar({ position, speed }: { position: [number, number, number], speed: number }) {
     const groupRef = useRef<THREE.Group>(null);
     const wheelsRef = useRef<THREE.Mesh[]>([]);
