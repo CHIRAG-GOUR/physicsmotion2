@@ -1,44 +1,37 @@
 import { motion } from 'framer-motion';
 import ChapterFooter from './ChapterFooter';
-import DataPlotterActivity from './DataPlotterActivity';
-import GraphNavigatorActivity from './GraphNavigatorActivity';
-import { LineChart, PieChart, Activity, Sparkles, TrendingUp, ChevronRight, Zap } from 'lucide-react';
+import InteractiveGraphSimulator from './InteractiveGraphSimulator';
+import { LineChart } from 'lucide-react';
 
-function GraphsHeaderAnimation() {
+function GraphHeaderAnimation() {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-5xl mx-auto bg-white/40 backdrop-blur-3xl border-4 border-white/60 p-16 rounded-[4rem] shadow-[0_40px_80px_rgba(0,0,0,0.1)] mb-16 relative overflow-hidden"
+            className="w-full max-w-4xl mx-auto bg-white/60 backdrop-blur-xl border-2 border-white p-12 rounded-[3.5rem] shadow-[0_20px_40px_rgba(0,0,0,0.05)] mb-12 relative overflow-hidden"
         >
-            {/* Background Grid Accent */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+            <div className="absolute top-0 w-full h-3 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 left-0" />
 
-            <div className="relative z-10 flex flex-col items-center text-center">
+            <div className="flex flex-col items-center justify-center text-center relative z-10">
                 <motion.div
-                    animate={{
-                        rotate: [0, 5, -5, 0],
-                        scale: [1, 1.1, 1]
-                    }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                    className="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-[2.5rem] flex items-center justify-center text-white mb-8 shadow-2xl shadow-blue-200"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-24 h-24 bg-violet-100 rounded-[2.5rem] flex items-center justify-center text-violet-600 mb-8 border-4 border-white shadow-lg"
                 >
                     <LineChart className="w-12 h-12" />
                 </motion.div>
 
-                <h1 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-slate-800 via-indigo-900 to-slate-900 font-outfit tracking-tighter mb-4">
-                    MOTION
+                <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tighter mb-2 font-outfit">
+                    VISUALIZING
                 </h1>
-                <h2 className="text-8xl md:text-11xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-indigo-600 to-violet-600 font-outfit tracking-tighter drop-shadow-2xl">
-                    GRAPHS
+                <h2 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-violet-600 to-fuchsia-600 tracking-tighter drop-shadow-sm font-outfit">
+                    MOTION GRAPHS
                 </h2>
-
-                <div className="mt-10 flex items-center gap-4 bg-white/80 border-2 border-white px-8 py-4 rounded-full shadow-lg backdrop-blur-xl">
-                    <Zap className="w-5 h-5 text-amber-500 fill-amber-500" />
-                    <span className="text-slate-600 font-black tracking-widest uppercase text-xs">Visualizing Physics In Real-Time</span>
-                    <Zap className="w-5 h-5 text-amber-500 fill-amber-500" />
-                </div>
             </div>
+
+            {/* Decorative background grid */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, slate-400 1px, transparent 0)', backgroundSize: '24px 24px' }} />
         </motion.div>
     );
 }
@@ -46,204 +39,157 @@ function GraphsHeaderAnimation() {
 export default function ChapterThreeOne() {
     return (
         <div className="w-full min-h-screen bg-slate-50/50 pb-20">
-            {/* Nav Header Area */}
+            {/* Header Section */}
             <div className="pt-20 px-4">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="max-w-5xl mx-auto mb-10 pl-4"
+                    className="max-w-4xl mx-auto mb-8 pl-4"
                 >
-                    <div className="flex items-center gap-4 bg-white/90 border-2 border-white px-8 py-4 rounded-3xl w-fit shadow-xl backdrop-blur-md">
-                        <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-lg">3</div>
-                        <div className="flex flex-col">
-                            <h4 className="text-slate-400 font-black tracking-widest uppercase text-[10px] leading-tight">Module 3</h4>
-                            <h4 className="text-slate-800 font-black text-lg leading-tight tracking-tight">Unit 1: Motion Graphs</h4>
-                        </div>
+                    <div className="flex items-center gap-3 bg-white/80 border-2 border-white px-6 py-3 rounded-full w-fit shadow-sm backdrop-blur-md">
+                        <span className="w-10 h-10 bg-violet-600 rounded-full flex items-center justify-center text-white font-black text-sm shadow-md">1</span>
+                        <h4 className="text-slate-600 font-black tracking-widest uppercase text-sm">Unit 1: Motion Graphs</h4>
                     </div>
                 </motion.div>
 
-                <GraphsHeaderAnimation />
+                <GraphHeaderAnimation />
             </div>
 
             <div className="max-w-7xl mx-auto px-4">
 
-                {/* Intro Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center my-32">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        className="space-y-8"
-                    >
-                        <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest border border-indigo-100">
-                            <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" /> Insight
-                        </div>
-                        <h3 className="text-5xl md:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight italic">
-                            "A picture is worth a thousand equations."
-                        </h3>
-                        <p className="text-2xl text-slate-600 leading-relaxed font-medium">
-                            Visualizing motion through graphs makes it easier to calculate <span className="text-blue-500 font-bold">speed</span>, <span className="text-rose-500 font-bold">distance</span>, and <span className="text-emerald-500 font-bold">acceleration</span> at a single glance. No more complex text—just lines telling the story of motion!
-                        </p>
-                    </motion.div>
+                {/* Introduction */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="bg-white p-10 rounded-[3rem] border-4 border-slate-100 shadow-xl mb-16 relative overflow-hidden"
+                >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-violet-50 rounded-bl-full flex items-start justify-end p-6">
+                        <LineChart className="text-violet-400 opacity-50" size={48} />
+                    </div>
+                    <h3 className="text-3xl font-black text-slate-800 mb-4">Distance-Time Graphs</h3>
+                    <p className="text-xl text-slate-600 leading-relaxed font-medium max-w-4xl">
+                        The change in position of an object with time can be represented on a distance-time graph. Time is taken along the <strong className="text-violet-600 bg-violet-50 px-2 rounded-md">x-axis</strong> and distance along the <strong className="text-pink-600 bg-pink-50 px-2 rounded-md">y-axis</strong>.
+                    </p>
+                </motion.div>
 
-                    <div className="relative">
-                        <div className="absolute -inset-4 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-[4rem] blur-2xl opacity-20"></div>
-                        <div className="relative bg-white p-6 rounded-[4rem] border-8 border-slate-100 shadow-2xl overflow-hidden group">
-                            <img src="https://images.unsplash.com/photo-1551288049-bbda4e3a06ad?auto=format&fit=crop&q=80&w=1000" alt="Graph Visualization" className="w-full h-[500px] object-cover rounded-[3rem] transition-transform duration-700 group-hover:scale-105" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-12">
-                                <div>
-                                    <p className="text-white text-3xl font-black mb-2 opacity-0 group-hover:opacity-100 transition-opacity">Digital Analytics</p>
-                                    <p className="text-indigo-200 font-bold">Nature is written in graphs.</p>
-                                </div>
+                {/* Graph Simulator Section */}
+                <div className="mb-24">
+                    <div className="text-center mb-10">
+                        <span className="bg-fuchsia-100 text-fuchsia-700 px-6 py-2 rounded-full font-black text-sm tracking-widest uppercase">Experiential Learning</span>
+                        <h3 className="text-4xl font-black text-slate-900 mt-4 mb-4">The Live Graph Simulator</h3>
+                        <p className="text-slate-500 font-medium max-w-2xl mx-auto">Toggle the motion state of the car and watch how the graphs draw themselves in real-time!</p>
+                    </div>
+
+                    <InteractiveGraphSimulator />
+                </div>
+
+                {/* Content Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+                    <div className="bg-gradient-to-br from-violet-500 to-indigo-600 p-10 rounded-[3rem] text-white shadow-xl">
+                        <h4 className="text-2xl font-black mb-6 flex items-center gap-3">
+                            <span className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">1</span>
+                            Uniform Speed
+                        </h4>
+                        <div className="space-y-4 text-violet-100 font-medium text-lg leading-relaxed">
+                            <p>The distance-time graph is a <strong className="text-white">straight line passing through the origin</strong>.</p>
+                            <p>This shows that distance is directly proportional to time. The object travels equal distances in equal intervals.</p>
+                            <div className="mt-6 p-4 bg-white/10 rounded-2xl border border-white/20">
+                                <p className="font-bold text-white mb-2">Calculating Speed (v)</p>
+                                <p className="font-mono text-sm">Slope = (s₂ - s₁) / (t₂ - t₁)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-gradient-to-br from-pink-500 to-rose-600 p-10 rounded-[3rem] text-white shadow-xl">
+                        <h4 className="text-2xl font-black mb-6 flex items-center gap-3">
+                            <span className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">2</span>
+                            Non-Uniform Speed
+                        </h4>
+                        <div className="space-y-4 text-pink-100 font-medium text-lg leading-relaxed">
+                            <p>When an object covers unequal distances in equal intervals of time (Accelerated Motion).</p>
+                            <p>The nature of the graph is a <strong className="text-white">curve (non-linear)</strong>.</p>
+                            <div className="mt-6 p-4 bg-white/10 rounded-2xl border border-white/20">
+                                <p className="font-bold text-white mb-2">Example</p>
+                                <p className="text-sm">A car covering 1m in 2s, then 4m in 4s, then 9m in 6s shows a non-linear variation.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Distance-Time Graph Section */}
-                <div className="my-40">
-                    <div className="text-center mb-20">
-                        <h2 className="text-6xl font-black text-slate-900 tracking-tight mb-6">Distance ⏤ Time Graphs</h2>
-                        <div className="w-24 h-2 bg-indigo-500 mx-auto rounded-full"></div>
-                    </div>
+                {/* Velocity Time Graphs */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    className="bg-white p-10 rounded-[3rem] border-4 border-slate-100 shadow-xl mb-16"
+                >
+                    <h3 className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-4">
+                        <span className="bg-blue-100 text-blue-600 p-3 rounded-2xl">
+                            <LineChart size={32} />
+                        </span>
+                        Velocity-Time Graphs
+                    </h3>
 
-                    <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-                        <div className="bg-white p-10 rounded-[3rem] border-4 border-slate-100 shadow-xl space-y-6">
-                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600">
-                                <TrendingUp className="w-8 h-8" />
-                            </div>
-                            <h4 className="text-2xl font-black text-slate-800">The Power of Slope</h4>
-                            <p className="text-lg text-slate-500 font-medium leading-relaxed">
-                                The change in position of an object with time is represented here. Point to remember: <span className="text-blue-600 font-bold">The slope of a Distance-Time graph gives the Speed!</span>
-                            </p>
-                            <div className="pt-6 border-t-2 border-slate-50 italic text-slate-400 text-sm font-bold">
-                                Time (x-axis) vs Distance (y-axis)
-                            </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-8">
+                        <div>
+                            <h5 className="text-xl font-bold text-slate-700 mb-3">Uniform Motion</h5>
+                            <ul className="space-y-3 text-slate-600 font-medium list-disc list-inside">
+                                <li>The height of the graph does not change.</li>
+                                <li>It is a <span className="text-blue-600 font-bold">straight line parallel to the x-axis</span>.</li>
+                                <li>The area underneath gives the <strong>distance</strong> (magnitude of displacement).</li>
+                                <li className="font-mono bg-slate-50 p-2 rounded-lg mt-2 text-sm">s = AC × CD = Area of Rectangle</li>
+                            </ul>
                         </div>
-
-                        <div className="bg-white p-10 rounded-[3rem] border-4 border-emerald-100 shadow-xl space-y-6">
-                            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600">
-                                <Activity className="w-8 h-8" />
-                            </div>
-                            <h4 className="text-2xl font-black text-slate-800">Uniform Speed</h4>
-                            <p className="text-lg text-slate-500 font-medium leading-relaxed">
-                                When distance is directly proportional to time, we get a <span className="text-emerald-600 font-bold">straight line</span> passing through the origin.
-                            </p>
-                            <img src="https://login.skillizee.io/s/articles/69aa9b99afa59631b5110a5b/images/image-20260306144748-1.png" className="w-full rounded-2xl border border-slate-100 mt-4" alt="Uniform Graph" />
-                        </div>
-
-                        <div className="bg-slate-900 p-10 rounded-[3rem] shadow-2xl space-y-6 text-white relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16"></div>
-                            <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-blue-400">
-                                <PieChart className="w-8 h-8" />
-                            </div>
-                            <h4 className="text-2xl font-black">Non-Uniform Speed</h4>
-                            <p className="text-lg text-slate-300 font-medium leading-relaxed">
-                                Accelerated motion creates a <span className="text-indigo-400 font-bold underline decoration-2 cursor-help">CURVE</span>. This shows speed is constantly changing.
-                            </p>
-                            <img src="https://login.skillizee.io/s/articles/69aa9b99afa59631b5110a5b/images/image-20260306144748-3.png" className="w-full rounded-2xl brightness-90 mt-4" alt="Non-uniform Graph" />
+                        <div>
+                            <h5 className="text-xl font-bold text-slate-700 mb-3">Uniform Acceleration</h5>
+                            <ul className="space-y-3 text-slate-600 font-medium list-disc list-inside">
+                                <li>Velocity changes by equal amounts in equal intervals.</li>
+                                <li>The graph is a <span className="text-emerald-600 font-bold">straight line with a slope</span>.</li>
+                                <li>The <span className="bg-emerald-50 text-emerald-700 font-bold px-1">slope</span> represents the acceleration.</li>
+                                <li className="font-mono bg-slate-50 p-2 rounded-lg mt-2 text-sm text-[12px]">s = Area of Rectangle + Area of Triangle</li>
+                            </ul>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <DataPlotterActivity />
-
-                {/* Velocity-Time Graphs Section */}
-                <div className="my-40">
-                    <div className="flex flex-col lg:flex-row gap-20 items-center">
-                        <div className="lg:w-1/2 space-y-8">
-                            <h2 className="text-6xl font-black text-slate-900 tracking-tight leading-tight">
-                                Velocity ⏤ Time <br /> Graphs
-                            </h2>
-                            <p className="text-2xl text-slate-600 font-medium leading-relaxed">
-                                Want to know how much distance a car covered just by looking at an image? In a V-T graph, the <span className="text-indigo-600 font-black italic">AREA under the curve</span> is the distance moved!
-                            </p>
-                            <div className="flex flex-col gap-4">
-                                <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 flex items-center gap-6 group hover:border-indigo-500 transition-all cursor-default">
-                                    <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                        <TrendingUp className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h5 className="font-black text-slate-800 uppercase tracking-widest text-xs mb-1">Slope Represents</h5>
-                                        <p className="text-xl font-black text-indigo-600 leading-none">Acceleration</p>
-                                    </div>
-                                </div>
-                                <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 flex items-center gap-6 group hover:border-emerald-500 transition-all cursor-default">
-                                    <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                                        <Activity className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h5 className="font-black text-slate-800 uppercase tracking-widest text-xs mb-1">Area Represents</h5>
-                                        <p className="text-xl font-black text-emerald-600 leading-none">Displacement</p>
-                                    </div>
-                                </div>
-                            </div>
+                {/* Summary Table */}
+                <div className="mb-24">
+                    <h3 className="text-4xl font-black text-center text-slate-900 mb-10">The Graph Matrix</h3>
+                    <div className="bg-white rounded-[3rem] border-4 border-slate-100 shadow-2xl overflow-hidden max-w-5xl mx-auto">
+                        <div className="grid grid-cols-3 bg-slate-50 border-b-4 border-slate-100 p-6">
+                            <div className="font-black text-slate-400 tracking-widest uppercase text-sm">Graph Type</div>
+                            <div className="font-black text-slate-400 tracking-widest uppercase text-sm">Key Feature</div>
+                            <div className="font-black text-slate-400 tracking-widest uppercase text-sm">Physical Quantity</div>
                         </div>
-                        <div className="lg:w-1/2">
-                            <div className="bg-white p-6 rounded-[4rem] border-8 border-slate-100 shadow-2xl">
-                                <img src="https://login.skillizee.io/s/articles/69aa9b99afa59631b5110a5b/images/image-20260306144748-7.png" className="w-full rounded-[3rem]" alt="Velocity-Time" />
+
+                        <div className="grid grid-cols-3 p-6 border-b-2 border-slate-50 items-center hover:bg-violet-50/50 transition-colors">
+                            <div className="font-bold text-slate-700 text-lg flex items-center gap-3">
+                                <div className="w-3 h-3 rounded-full bg-violet-500" /> Distance-Time
                             </div>
+                            <div className="font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl w-fit">Slope</div>
+                            <div className="font-black text-violet-600 text-xl">Speed</div>
+                        </div>
+
+                        <div className="grid grid-cols-3 p-6 border-b-2 border-slate-50 items-center hover:bg-emerald-50/50 transition-colors">
+                            <div className="font-bold text-slate-700 text-lg flex items-center gap-3">
+                                <div className="w-3 h-3 rounded-full bg-emerald-500" /> Velocity-Time
+                            </div>
+                            <div className="font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl w-fit">Slope</div>
+                            <div className="font-black text-emerald-600 text-xl">Acceleration</div>
+                        </div>
+
+                        <div className="grid grid-cols-3 p-6 items-center hover:bg-pink-50/50 transition-colors">
+                            <div className="font-bold text-slate-700 text-lg flex items-center gap-3">
+                                <div className="w-3 h-3 rounded-full bg-pink-500" /> Velocity-Time
+                            </div>
+                            <div className="font-bold text-slate-600 bg-slate-100 px-4 py-2 rounded-xl w-fit">Area Under Curve</div>
+                            <div className="font-black text-pink-600 text-xl">Displacement (Distance)</div>
                         </div>
                     </div>
                 </div>
 
-                <GraphNavigatorActivity />
-
-                {/* Summary Table Section */}
-                <div className="my-40 max-w-5xl mx-auto">
-                    <div className="bg-white rounded-[4rem] border-4 border-slate-100 shadow-2xl p-16 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-4 bg-indigo-600"></div>
-                        <h3 className="text-4xl font-black text-slate-900 mb-10 text-center uppercase tracking-tighter italic">Summary of Graph Interpretations</h3>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {[
-                                { type: "Distance-Time", feat: "SLOPE", quant: "SPEED" },
-                                { type: "Velocity-Time", feat: "SLOPE", quant: "ACCELERATION" },
-                                { type: "Velocity-Time", feat: "AREA UNDER CURVE", quant: "DISPLACEMENT" }
-                            ].map((row, i) => (
-                                <div key={i} className="bg-slate-50 p-8 rounded-[2.5rem] border-2 border-slate-100 text-center group hover:bg-slate-900 hover:text-white transition-all duration-300">
-                                    <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4 group-hover:text-indigo-400">{row.type}</h5>
-                                    <p className="text-lg font-black leading-tight mb-2 italic">"{row.feat}"</p>
-                                    <div className="w-8 h-1 bg-slate-200 mx-auto my-4 group-hover:bg-indigo-500"></div>
-                                    <p className="text-2xl font-black text-indigo-600 group-hover:text-emerald-400 transition-colors uppercase tracking-tighter">{row.quant}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Final Questions Section */}
-                <div className="my-32 space-y-12">
-                    <div className="flex items-center gap-6 mb-16">
-                        <div className="h-0.5 flex-1 bg-slate-200"></div>
-                        <h3 className="text-4xl font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Knowledge Check</h3>
-                        <div className="h-0.5 flex-1 bg-slate-200"></div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <motion.div whileHover={{ y: -10 }} className="bg-white p-10 rounded-[3rem] border-2 border-slate-100 shadow-xl group cursor-help">
-                            <div className="flex justify-between items-start mb-6">
-                                <span className="bg-indigo-100 text-indigo-700 font-bold px-4 py-1 rounded-full text-[10px] tracking-widest uppercase">Q1</span>
-                                <ChevronRight className="text-slate-200 group-hover:text-indigo-500 transition-colors" />
-                            </div>
-                            <h4 className="text-xl font-bold text-slate-800 leading-tight">
-                                What is the nature of the D-T graphs for uniform and non-uniform motion?
-                            </h4>
-                        </motion.div>
-
-                        <motion.div whileHover={{ y: -10 }} className="bg-white p-10 rounded-[3rem] border-2 border-slate-100 shadow-xl group cursor-help">
-                            <div className="flex justify-between items-start mb-6">
-                                <span className="bg-emerald-100 text-emerald-700 font-bold px-4 py-1 rounded-full text-[10px] tracking-widest uppercase">Q2</span>
-                                <ChevronRight className="text-slate-200 group-hover:text-emerald-500 transition-colors" />
-                            </div>
-                            <h4 className="text-xl font-bold text-slate-800 leading-tight">
-                                What can you say about motion if the D-T graph is parallel to the time axis?
-                            </h4>
-                        </motion.div>
-                    </div>
-                </div>
             </div>
 
-            <ChapterFooter chapterName="Graphs of Motion" />
+            <ChapterFooter chapterName="3.1 ⏤ Motion Graphs" />
         </div>
     );
 }

@@ -76,17 +76,17 @@ export default function InteractiveMascot() {
         ];
         gradientStyle = "from-cyan-500 to-blue-500";
         mascotFace = "📐";
-    } else if (location.pathname.includes("chapter-3.1")) {
-        // Motion Graphs
+    } else if (location.pathname.includes("chapter-2.3")) {
+        // Practical Applications
         funFacts = [
-            "The slope of a Distance-Time graph is actually your Speed! 📈",
-            "Area under a Velocity-Time graph = Distance covered! Geometry is magic! 🪄",
-            "If the V-T graph is a straight horizontal line, you're cruising at a perfectly constant velocity! 🛸",
-            "Curves in graphs mean things are getting faster or slower—that's non-uniform motion! 〰️",
-            "Gravity creates a perfect straight-line slope on a Velocity-Time graph! 🎾"
+            "Time to solve! Rahul's bicycle problem is a classic physics puzzle. 🚲",
+            "Negative acceleration is often called 'Retardation' – it just means slowing down!",
+            "Numerical problems help scientists send rockets to the moon with extreme precision! 🚀",
+            "Units are everything! Always check if you are calculating in m/s or km/h! 📏",
+            "Calculators are tools, but your brain is the real engine! 🧠"
         ];
-        gradientStyle = "from-blue-600 to-indigo-500";
-        mascotFace = "📈";
+        gradientStyle = "from-emerald-500 to-teal-400";
+        mascotFace = "🧮";
     } else {
         // Fallback
         funFacts = ["Motion is everywhere! Keep exploring! ⚛️"];
