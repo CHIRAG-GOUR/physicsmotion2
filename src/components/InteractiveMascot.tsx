@@ -87,6 +87,26 @@ export default function InteractiveMascot() {
         ];
         gradientStyle = "from-emerald-500 to-teal-400";
         mascotFace = "🧮";
+    } else if (location.pathname.includes("chapter-3.1")) {
+        // Motion Graphs
+        funFacts = [
+            "The Slope of a Distance-Time graph tells you the Speed! 📈",
+            "A horizontal line on a Distance graph means the object is at Rest! 🛑",
+            "The area under a Velocity-Time graph gives you the total Displacement! 📐"
+        ];
+        gradientStyle = "from-sky-500 to-indigo-400";
+        mascotFace = "📊";
+    } else if (location.pathname.includes("chapter-3.2")) {
+        // Uniform Circular Motion
+        funFacts = [
+            "Running in a circle means your direction changes at every single point! 🏃",
+            "Even if speed is constant, a changing direction means you are Accelerating! 🔄",
+            "Let go of a spinning object, and it flies off in a straight tangent line! ☄️",
+            "The moon is constantly accelerating towards Earth, but its forward speed keeps it in orbit! 🌕",
+            "To calculate speed in a circle, use v = 2πr / t ! 🧮"
+        ];
+        gradientStyle = "from-rose-500 to-indigo-500";
+        mascotFace = "☄️";
     } else {
         // Fallback
         funFacts = ["Motion is everywhere! Keep exploring! ⚛️"];

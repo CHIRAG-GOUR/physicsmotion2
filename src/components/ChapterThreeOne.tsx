@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import ChapterFooter from './ChapterFooter';
 import InteractiveGraphSimulator from './InteractiveGraphSimulator';
 import GraphDataPlotterActivity from './GraphDataPlotterActivity';
-import GraphTrainJourneyActivity from './GraphTrainJourneyActivity';
 import { LineChart, Play, CheckCircle } from 'lucide-react';
 
 function GraphHeaderAnimation() {
@@ -163,24 +162,6 @@ export default function ChapterThreeOne() {
                         </div>
                     </div>
                 </motion.div>
-
-                {/* Train Activity Section */}
-                <div className="mb-24">
-                    <div className="bg-white p-10 rounded-t-[3rem] border-4 border-b-0 border-slate-100 relative">
-                        <h4 className="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3">
-                            <Play className="text-sky-500 fill-current w-6 h-6" /> Activity: The Train Stations
-                        </h4>
-                        <p className="text-lg text-slate-600 font-medium max-w-4xl">
-                            The times of arrival and departure of a train at three stations A, B and C and the distance of stations B and C from station A are given in Table. Plot and interpret the distance-time graph for the train assuming that its motion between any two stations is uniform.
-                        </p>
-                        <div className="mt-6 flex flex-wrap gap-4 text-sm font-bold text-slate-500 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                            <div>Station A: <span className="text-amber-600">0km</span></div>
-                            <div>Station B: <span className="text-amber-600">120km</span></div>
-                            <div>Station C: <span className="text-amber-600">180km</span></div>
-                        </div>
-                    </div>
-                    <GraphTrainJourneyActivity />
-                </div>
 
                 {/* Feroz and Sania Plotter Section */}
                 <div className="mb-24">
