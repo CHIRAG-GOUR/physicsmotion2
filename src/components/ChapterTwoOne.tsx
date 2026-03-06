@@ -8,7 +8,21 @@ function AccelerationHeaderAnimation({ text }: { text: string }) {
     const words = text.split(" ");
 
     return (
-        <div className="flex justify-center gap-3 flex-wrap mb-4 py-2 overflow-hidden">
+        <div className="relative flex justify-center gap-3 flex-wrap mb-4 py-2 overflow-hidden px-8">
+            <motion.div
+                initial={{ x: -200, opacity: 0 }}
+                animate={{ x: "120%", opacity: [0, 1, 1, 0] }}
+                transition={{
+                    duration: 2,
+                    ease: "anticipate",
+                    repeat: Infinity,
+                    repeatDelay: 3
+                }}
+                className="absolute top-1/2 -translate-y-1/2 text-5xl md:text-7xl z-10 pointer-events-none drop-shadow-xl"
+            >
+                🏎️💨
+            </motion.div>
+
             {words.map((word, i) => (
                 <motion.span
                     key={i}
@@ -20,7 +34,7 @@ function AccelerationHeaderAnimation({ text }: { text: string }) {
                         stiffness: 100,
                         delay: i * 0.1,
                     }}
-                    className="inline-block text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500 font-outfit drop-shadow-[0_5px_15px_rgba(168,85,247,0.4)] tracking-tighter"
+                    className="inline-block text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500 font-outfit drop-shadow-[0_5px_15px_rgba(168,85,247,0.4)] tracking-tighter relative z-0"
                 >
                     {word}
                 </motion.span>

@@ -65,6 +65,17 @@ export default function InteractiveMascot() {
         ];
         gradientStyle = "from-violet-500 to-fuchsia-400";
         mascotFace = "🚀";
+    } else if (location.pathname.includes("chapter-2.2")) {
+        // Equations of Motion
+        funFacts = [
+            "The 3 Equations of Motion only work if acceleration is completely Uniform! 📏",
+            "v = u + at is super useful for figuring out how fast a car is going after hitting the gas! 🏎️",
+            "There's a reason we don't have to know 'time' in the 3rd Equation... it was substituted out mathematically! 🧮",
+            "Did you know Galileo developed many of the ideas behind these kinematics equations by rolling balls down ramps? 🎱",
+            "In these equations, 'u' always stands for your Initial Velocity right at the starting line! 🏁"
+        ];
+        gradientStyle = "from-cyan-500 to-blue-500";
+        mascotFace = "📐";
     } else {
         // Fallback
         funFacts = ["Motion is everywhere! Keep exploring! ⚛️"];
