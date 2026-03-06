@@ -7,6 +7,7 @@ import ChapterFour from './components/ChapterFour';     // Chapter 1.4
 import ChapterTwoOne from './components/ChapterTwoOne'; // Chapter 2.1
 import ChapterTwoTwo from './components/ChapterTwoTwo'; // Chapter 2.2
 import ChapterTwoThree from './components/ChapterTwoThree'; // Chapter 2.3
+import ChapterThreeOne from './components/ChapterThreeOne'; // Chapter 3.1
 import TopProgressBar from './components/TopProgressBar';
 import FullscreenButton from './components/FullscreenButton';
 import BottomProgressRing from './components/BottomProgressRing';
@@ -42,6 +43,7 @@ function App() {
             <Route path="/chapter-2.1" element={<ChapterTwoOne />} />
             <Route path="/chapter-2.2" element={<ChapterTwoTwo />} />
             <Route path="/chapter-2.3" element={<ChapterTwoThree />} />
+            <Route path="/chapter-3.1" element={<ChapterThreeOne />} />
           </Routes>
         </div>
 
