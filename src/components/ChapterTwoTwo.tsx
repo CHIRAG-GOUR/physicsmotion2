@@ -4,6 +4,7 @@ import FluidGlass from './FluidGlass';
 import ChapterFooter from './ChapterFooter';
 import Equations3DActivity from './Equations3DActivity';
 import EquationsDragDropActivity from './EquationsDragDropActivity';
+import OPhysicsK1Simulator from './OPhysicsK1Simulator';
 
 function EquationsHeaderAnimation() {
     const line1 = "EQUATIONS OF".split("");
@@ -151,6 +152,8 @@ export default function ChapterTwoTwo() {
                     <img src="https://login.skillizee.io/s/articles/69aa60178110a348e33facb3/images/image-20260306103321-2.jpeg" alt="Graph of Velocity vs Time" className="w-full h-auto" />
                 </div>
             </div>
+
+            <OPhysicsK1Simulator />
 
             {/* 3D Simulator */}
             <h3 className="text-4xl font-extrabold text-slate-800 text-center mb-4 mt-20">The 3D Equations Simulator 🏎️</h3>

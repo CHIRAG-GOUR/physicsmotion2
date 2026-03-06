@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import ChapterFooter from './ChapterFooter';
 import InteractiveGraphSimulator from './InteractiveGraphSimulator';
 import GraphDataPlotterActivity from './GraphDataPlotterActivity';
+import OPhysicsK3Simulator from './OPhysicsK3Simulator';
 import { LineChart, Play, CheckCircle } from 'lucide-react';
 
 function GraphHeaderAnimation() {
@@ -93,6 +94,8 @@ export default function ChapterThreeOne() {
                     </div>
 
                     <InteractiveGraphSimulator />
+
+                    <OPhysicsK3Simulator />
                 </div>
 
                 {/* Content Grid */}

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import ChapterFooter from './ChapterFooter';
 import ProblemSolverActivity from './ProblemSolverActivity';
 import NumericalGallery from './NumericalGallery';
+import IframeActivity from './IframeActivity';
 import { Target, Zap, Rocket } from 'lucide-react';
 
 function PracticalHeaderAnimation() {
@@ -105,6 +106,12 @@ export default function ChapterTwoThree() {
                 <ProblemSolverActivity />
 
                 <NumericalGallery />
+
+                <IframeActivity
+                    title="PhET: Projectile Motion"
+                    description="Blast a car out of a cannon, and challenge yourself to hit a target! Learn about projectile kinematics by firing various objects in a perfect parabola. Try adjusting the initial speed, angle, and mass."
+                    url="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_en.html"
+                />
             </div>
 
             <ChapterFooter chapterName="Practical Application Sums" />

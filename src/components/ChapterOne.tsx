@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Bus, TreePine, PersonStanding } from 'lucide-react';
 import FluidGlass from './FluidGlass';
 import Interactive3DSimulation from './Interactive3DSimulation';
+import IframeActivity from './IframeActivity';
 import ChapterFooter from './ChapterFooter';
 
 // Reusable Video Component
@@ -350,6 +351,12 @@ function ActivitiesContent() {
                     </div>
                 </div>
             </div>
+
+            <IframeActivity
+                title="PhET: Forces & Motion Basics"
+                description="Explore the forces at work when pulling against a cart, and pushing a refrigerator, crate, or person! Create an applied force and see how it fundamentally makes objects move and accelerate."
+                url="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html"
+            />
 
             <Interactive3DSimulation />
 
