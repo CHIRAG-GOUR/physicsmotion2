@@ -94,34 +94,44 @@ export default function DisplacementVectorActivity() {
 
             <div className="flex flex-col md:flex-row gap-16 items-center justify-center">
 
-                {/* 2D Canvas Map */}
-                <div className="relative border-[6px] border-slate-300 rounded-2xl bg-[#e0f2fe] shadow-inner" style={{ width: fieldSize + 12, height: fieldSize + 12 }}>
-                    {/* Grid Lines Pattern */}
-                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+                {/* Farm Field Canvas */}
+                <div className="relative rounded-2xl bg-[#5cb85c] shadow-[inset_0_0_20px_rgba(0,0,0,0.2)]" style={{ width: fieldSize + 12, height: fieldSize + 12 }}>
+                    
+                    {/* Dirt Path Boundary (The Farmer's Track) */}
+                    <div className="absolute inset-0 m-[2px] border-[8px] border-[#8b5a2b] rounded-lg shadow-inner z-0" />
 
-                    {/* The Square Field Boundary */}
-                    <div className="absolute border-4 border-dashed border-teal-500 m-[2px]" style={{ width: fieldSize, height: fieldSize, top: 0, left: 0 }} />
+                    {/* Inside Farm Area (Crops) */}
+                    <div className="absolute inset-[10px] overflow-hidden rounded opacity-80 z-0">
+                        {/* Crop Rows Pattern */}
+                        <div className="w-full h-full" style={{ 
+                            backgroundImage: 'repeating-linear-gradient(90deg, #4cae4c 0px, #4cae4c 10px, #398439 10px, #398439 20px)' 
+                        }} />
+                    </div>
 
-                    {/* Corner Labels */}
-                    <span className="absolute -top-8 -left-4 font-bold text-slate-600">Start (0,0)</span>
-                    <span className="absolute -top-8 -right-4 font-bold text-slate-600">10m</span>
-                    <span className="absolute -bottom-8 -right-4 font-bold text-slate-600">20m</span>
-                    <span className="absolute -bottom-8 -left-4 font-bold text-slate-600">30m</span>
+                    {/* Corner Signposts */}
+                    <div className="absolute -top-6 -left-8 bg-[#d2b48c] border-2 border-[#8b5a2b] px-3 py-1 rounded shadow-md z-30 font-bold text-xs text-[#5c3a21] transform -rotate-6">Start (0,0)</div>
+                    <div className="absolute -top-6 -right-6 bg-[#d2b48c] border-2 border-[#8b5a2b] px-3 py-1 rounded shadow-md z-30 font-bold text-xs text-[#5c3a21] transform rotate-3">10m</div>
+                    <div className="absolute -bottom-6 -right-6 bg-[#d2b48c] border-2 border-[#8b5a2b] px-3 py-1 rounded shadow-md z-30 font-bold text-xs text-[#5c3a21] transform -rotate-3">20m</div>
+                    <div className="absolute -bottom-6 -left-6 bg-[#d2b48c] border-2 border-[#8b5a2b] px-3 py-1 rounded shadow-md z-30 font-bold text-xs text-[#5c3a21] transform rotate-6">30m</div>
+
+                    {/* Fences (Decorative dots along the dirt path) */}
+                    <div className="absolute inset-0 z-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#5c3a21 2px, transparent 2px)', backgroundSize: '20px 20px', backgroundPosition: 'center', opacity: 0.6 }} />
 
                     {/* Displacement Vector Line (Hypotenuse) */}
-                    <svg className="absolute inset-0 pointer-events-none z-10 overflow-visible" width={fieldSize + 12} height={fieldSize + 12}>
+                    <svg className="absolute inset-0 pointer-events-none z-20 overflow-visible" width={fieldSize + 12} height={fieldSize + 12}>
                         <motion.line
-                            x1={2} y1={2} x2={currentPos.x + 2} y2={currentPos.y + 2}
-                            stroke="rgba(236,72,153,0.8)" // Pink-500
+                            x1={6} y1={6} x2={currentPos.x + 6} y2={currentPos.y + 6}
+                            stroke="rgba(255,255,255,0.9)" // White vector for high contrast against green
                             strokeWidth="4"
                             strokeDasharray="8 8"
+                            className="drop-shadow-[0_0_5px_rgba(0,0,0,0.5)]"
                         />
                     </svg>
 
                     {/* The Farmer Marker */}
                     <div
-                        className="absolute w-10 h-10 bg-white rounded-full border-4 border-teal-600 shadow-lg flex items-center justify-center text-xl z-20 m-[2px]"
-                        style={{ left: currentPos.x - 20, top: currentPos.y - 20 }}
+                        className="absolute w-12 h-12 bg-white rounded-full border-4 border-[#8b5a2b] shadow-[0_5px_15px_rgba(0,0,0,0.3)] flex items-center justify-center text-2xl z-40 transition-transform hover:scale-110"
+                        style={{ left: currentPos.x - 18, top: currentPos.y - 18 }}
                     >
                         👨‍🌾
                     </div>

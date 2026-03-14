@@ -21,6 +21,19 @@ export default function OPhysicsK1Simulator() {
             if (isPlaying) {
                 setTime(prevTime => {
                     const newTime = prevTime + deltaTime;
+                    
+                    // Check if car hit boundary
+                    const curX = posX(newTime);
+                    const vInstant = v0 + accel * newTime;
+                    
+                    // Only stop if we are at boundary AND moving towards/further into it
+                    if ((curX >= 50 && vInstant > 0) || (curX <= -50 && vInstant < 0)) {
+                        setIsPlaying(false);
+                        // Clamp time to exactly when it hits boundary for accuracy
+                        // Solving for t in: x0 + v0*t + 0.5*a*t^2 = 50 (or -50)
+                        return newTime; 
+                    }
+
                     if (newTime >= maxTime) {
                         setIsPlaying(false);
                         return maxTime;
@@ -45,26 +58,29 @@ export default function OPhysicsK1Simulator() {
         let path = '';
         const w = 300;
         const h = 200;
-        const pts = 50;
+        
+        // Find the effective max time by simulating path and stopping if boundary hit
+        let effectiveMaxTime = maxTime;
+        for (let t = 0; t <= maxTime; t += 0.1) {
+            const tempX = posX(t);
+            if (tempX >= 50 || tempX <= -50) {
+                effectiveMaxTime = t;
+                break;
+            }
+        }
 
+        const pts = 50;
         for (let i = 0; i <= pts; i++) {
-            const t = (i / pts) * maxTime;
+            // Only plot points up to the effective max time where the car hit the boundary
+            const t = (i / pts) * effectiveMaxTime; 
             const yVal = calcFunction(t);
             
             // Map t [0, 10] to x [0, 300]
             const svgX = (t / maxTime) * w;
             
-            // Check boundaries - if we exceed, stop drawing the path to avoid horizontal lines
-            if (yVal > maxY || yVal < minY) {
-                // To make a clean cut at the boundary, we could find the exact t, 
-                // but for simplicity, breaking here or drawing one last point at clamped pos is better.
-                const clampedY = Math.max(minY, Math.min(maxY, yVal));
-                const svgY = h - ((clampedY - minY) / (maxY - minY)) * h;
-                path += `L ${svgX} ${svgY} `;
-                break; 
-            }
-
-            const svgY = h - ((yVal - minY) / (maxY - minY)) * h;
+            // Limit Y values safely
+            const clampedY = Math.max(minY, Math.min(maxY, yVal));
+            const svgY = h - ((clampedY - minY) / (maxY - minY)) * h;
 
             if (i === 0) path += `M ${svgX} ${svgY} `;
             else path += `L ${svgX} ${svgY} `;
@@ -137,7 +153,7 @@ export default function OPhysicsK1Simulator() {
                 {/* The Car */}
                 <div
                     className={`absolute top-1/2 -mt-6 text-5xl transform -translate-x-1/2 drop-shadow-lg transition-transform ${currentV >= 0 ? 'scale-x-[-1]' : 'scale-x-100'}`}
-                    style={{ left: `${50 + (currentX / 100) * 50}%` }} // Maps x [-50, 50] to left [25%, 75%] approx visually
+                    style={{ left: `${Math.max(2, Math.min(98, 50 + (currentX / 50) * 50))}%` }} // Maps x [-50, 50] to left [0%, 100%] approx visually
                 >
                     🏎️
                 </div>
@@ -193,6 +209,21 @@ export default function OPhysicsK1Simulator() {
                             {/* Grid Layout */}
                             <div className="absolute top-1/2 w-full h-[1px] bg-slate-700"></div>
                             <svg className="w-full h-full overflow-visible relative z-10" viewBox="0 0 300 200" preserveAspectRatio="none">
+                                {/* Axes & Grid */}
+                                <line x1="0" y1="100" x2="300" y2="100" stroke="#475569" strokeWidth="1" />
+                                <line x1="0" y1="0" x2="0" y2="200" stroke="#475569" strokeWidth="1" />
+                                
+                                {/* Y-Axis Labels */}
+                                <text x="-25" y="10" fill="#94a3b8" fontSize="10" fontWeight="bold">150</text>
+                                <text x="-15" y="104" fill="#94a3b8" fontSize="10" fontWeight="bold">0</text>
+                                <text x="-30" y="195" fill="#94a3b8" fontSize="10" fontWeight="bold">-150</text>
+                                <text x="-40" y="100" fill="#3b82f6" fontSize="12" fontWeight="bold" transform="rotate(-90, -40, 100)">x (m)</text>
+
+                                {/* X-Axis Labels */}
+                                <text x="140" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">5</text>
+                                <text x="290" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">10</text>
+                                <text x="305" y="105" fill="#94a3b8" fontSize="12" fontWeight="bold">t (s)</text>
+
                                 <path d={generatePath(posX, -150, 150)} fill="none" stroke="#3b82f6" strokeWidth="4" className="drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
                                 <circle cx={markerX} cy={mapY(currentX, -150, 150)} r="6" fill="#60a5fa" className="drop-shadow-[0_0_10px_#60a5fa]" />
                                 <line x1={markerX} y1="0" x2={markerX} y2="200" stroke="#60a5fa" strokeOpacity="0.3" strokeWidth="2" strokeDasharray="4 4" />
@@ -207,6 +238,21 @@ export default function OPhysicsK1Simulator() {
                         <div className="relative w-full aspect-[3/2] bg-slate-900/50 rounded-xl overflow-hidden shadow-inner border border-slate-700/50">
                             <div className="absolute top-1/2 w-full h-[1px] bg-slate-700"></div>
                             <svg className="w-full h-full overflow-visible relative z-10" viewBox="0 0 300 200" preserveAspectRatio="none">
+                                {/* Axes & Grid */}
+                                <line x1="0" y1="100" x2="300" y2="100" stroke="#475569" strokeWidth="1" />
+                                <line x1="0" y1="0" x2="0" y2="200" stroke="#475569" strokeWidth="1" />
+                                
+                                {/* Y-Axis Labels */}
+                                <text x="-20" y="10" fill="#94a3b8" fontSize="10" fontWeight="bold">50</text>
+                                <text x="-15" y="104" fill="#94a3b8" fontSize="10" fontWeight="bold">0</text>
+                                <text x="-25" y="195" fill="#94a3b8" fontSize="10" fontWeight="bold">-50</text>
+                                <text x="-40" y="100" fill="#10b981" fontSize="12" fontWeight="bold" transform="rotate(-90, -40, 100)">v (m/s)</text>
+
+                                {/* X-Axis Labels */}
+                                <text x="140" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">5</text>
+                                <text x="290" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">10</text>
+                                <text x="305" y="105" fill="#94a3b8" fontSize="12" fontWeight="bold">t (s)</text>
+
                                 <path d={generatePath(velV, -50, 50)} fill="none" stroke="#10b981" strokeWidth="4" className="drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                                 <circle cx={markerX} cy={mapY(currentV, -50, 50)} r="6" fill="#34d399" className="drop-shadow-[0_0_10px_#34d399]" />
                                 <line x1={markerX} y1="0" x2={markerX} y2="200" stroke="#34d399" strokeOpacity="0.3" strokeWidth="2" strokeDasharray="4 4" />
@@ -221,6 +267,21 @@ export default function OPhysicsK1Simulator() {
                         <div className="relative w-full aspect-[3/2] bg-slate-900/50 rounded-xl overflow-hidden shadow-inner border border-slate-700/50">
                             <div className="absolute top-1/2 w-full h-[1px] bg-slate-700"></div>
                             <svg className="w-full h-full overflow-visible relative z-10" viewBox="0 0 300 200" preserveAspectRatio="none">
+                                {/* Axes & Grid */}
+                                <line x1="0" y1="100" x2="300" y2="100" stroke="#475569" strokeWidth="1" />
+                                <line x1="0" y1="0" x2="0" y2="200" stroke="#475569" strokeWidth="1" />
+                                
+                                {/* Y-Axis Labels */}
+                                <text x="-20" y="10" fill="#94a3b8" fontSize="10" fontWeight="bold">15</text>
+                                <text x="-15" y="104" fill="#94a3b8" fontSize="10" fontWeight="bold">0</text>
+                                <text x="-25" y="195" fill="#94a3b8" fontSize="10" fontWeight="bold">-15</text>
+                                <text x="-45" y="100" fill="#f43f5e" fontSize="12" fontWeight="bold" transform="rotate(-90, -45, 100)">a (m/s²)</text>
+
+                                {/* X-Axis Labels */}
+                                <text x="140" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">5</text>
+                                <text x="290" y="115" fill="#94a3b8" fontSize="10" fontWeight="bold">10</text>
+                                <text x="305" y="105" fill="#94a3b8" fontSize="12" fontWeight="bold">t (s)</text>
+
                                 <path d={generatePath(accA, -15, 15)} fill="none" stroke="#f43f5e" strokeWidth="4" className="drop-shadow-[0_0_8px_rgba(244,63,94,0.5)]" />
                                 <circle cx={markerX} cy={mapY(currentA, -15, 15)} r="6" fill="#fb7185" className="drop-shadow-[0_0_10px_#fb7185]" />
                                 <line x1={markerX} y1="0" x2={markerX} y2="200" stroke="#fb7185" strokeOpacity="0.3" strokeWidth="2" strokeDasharray="4 4" />

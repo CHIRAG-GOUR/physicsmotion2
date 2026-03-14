@@ -8,6 +8,7 @@ export default function InteractiveMascot() {
     const speechRef = useRef<HTMLDivElement>(null);
     const [factIndex, setFactIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
+    const [showPrompt, setShowPrompt] = useState(false);
 
     const location = useLocation();
 
@@ -131,6 +132,13 @@ export default function InteractiveMascot() {
                 ease: "sine.inOut"
             });
         }
+
+        // Auto-show facts prompt interval
+        const intervalId = setInterval(() => {
+            setShowPrompt(prev => !prev);
+        }, 5000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     const handleClick = () => {
@@ -144,17 +152,19 @@ export default function InteractiveMascot() {
         setFactIndex((prev) => (prev + 1) % funFacts.length);
     };
 
+    const isVisible = isHovered || showPrompt;
+
     return (
         <div className="fixed bottom-[10%] left-8 z-50">
-            {/* Speech Bubble (only shows on hover) */}
+            {/* Speech Bubble / Fact */}
             <motion.div
                 ref={speechRef}
                 initial={{ opacity: 0, scale: 0.5, x: -20, y: 20 }}
                 animate={{
-                    opacity: isHovered ? 1 : 0,
-                    scale: isHovered ? 1 : 0.5,
-                    x: isHovered ? 0 : -20,
-                    y: isHovered ? 0 : 20
+                    opacity: isVisible ? 1 : 0,
+                    scale: isVisible ? 1 : 0.5,
+                    x: isVisible ? 0 : -20,
+                    y: isVisible ? 0 : 20
                 }}
                 className="absolute bottom-full left-full mb-4 w-64 bg-white p-4 rounded-3xl rounded-bl-sm shadow-xl border-4 border-purple-200 pointer-events-none origin-bottom-left"
             >
@@ -162,6 +172,16 @@ export default function InteractiveMascot() {
                     {funFacts[factIndex]}
                 </p>
                 <p className="text-xs text-purple-400 mt-2 font-medium">Click me for another fact!</p>
+            </motion.div>
+
+            {/* Click Here Prompt (shows only when prompt is active and not hovered) */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: (showPrompt && !isHovered) ? 1 : 0, y: (showPrompt && !isHovered) ? 0 : 10 }}
+                className="absolute top-0 left-full ml-4 whitespace-nowrap bg-purple-500 text-white text-xs font-black uppercase px-3 py-1.5 rounded-full shadow-lg border-2 border-white pointer-events-none"
+            >
+                <div>Click here for facts! ✨</div>
+                <div className="absolute top-1/2 -left-1.5 -mt-1.5 w-3 h-3 bg-purple-500 transform rotate-45"></div>
             </motion.div>
 
             {/* Mascot Body */}
